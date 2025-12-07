@@ -27,7 +27,7 @@ app.get('/notes', (req, res) => {
 app.get('/notes/:noteId', (req, res) => {
   const id_param = Number(req.params.noteId);
   res.status(200).json({
-    message: `Retrieved note with ID: ${id_param}`
+    message: `Retrieved note with ID: ${id_param}`,
   });
 });
 
@@ -38,10 +38,16 @@ app.get('/test-error', (req, res) => {
 // Обробка неіснуючих маршрутів
 app.use((req, res) => {
   res.status(404).json({
-    message: "Route not found"
+    message: 'Route not found',
   });
 });
 
+app.use((err, req, res, next) => {
+  req.log?.error(err);
+  res.status(500).json({
+    message: err.message || 'Internal server error',
+  });
+});
 
 // --- Start Server ---
 app.listen(PORT, () => {
