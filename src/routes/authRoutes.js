@@ -1,7 +1,15 @@
 // src/routes/authRoutes.js
 import { Router } from 'express';
-import { registerUser, loginUser, refreshUserSession, logoutUser } from '../controllers/authControllers.js';
-import { registerUserSchema, loginUserSchema } from '../validations/authValidation.js';
+import {
+  registerUser,
+  loginUser,
+  refreshUserSession,
+  logoutUser,
+} from '../controllers/authController.js';
+import {
+  registerUserSchema,
+  loginUserSchema,
+} from '../validations/authValidation.js';
 
 const router = Router();
 
