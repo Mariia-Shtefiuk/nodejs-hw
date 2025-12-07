@@ -5,35 +5,37 @@ const userSchema = new Schema(
     username: {
       type: String,
       trim: true,
-      default: null
+      default: null,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      trim: true
+      trim: true,
     },
     password: {
       type: String,
       required: true,
-      minlength: 8
+      minlength: 8,
     },
     avatar: {
       type: String,
       required: false,
-      default: "<https://ac.goit.global/fullstack/react/default-avatar.jpg>",
+      default: '<https://ac.goit.global/fullstack/react/default-avatar.jpg>',
     },
   },
   {
     timestamps: true,
-    versionKey: false
-  }
+    versionKey: false,
+  },
 );
 
 userSchema.pre('save', function (next) {
   if (!this.username) {
     this.username = this.email;
   }
+
+  next();
 });
 
 userSchema.methods.toJSON = function () {
