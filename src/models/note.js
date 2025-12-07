@@ -1,33 +1,33 @@
 // src/models/note.js
 
 import { Schema, model } from 'mongoose';
+import { TAGS } from '../constants/tags';
 
 const noteSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true
+      required: true,
     },
     title: {
       type: String,
-      required: true
+      required: true,
     },
     content: {
       type: String,
-      default: ''
+      default: '',
+      trim: true,
     },
     tag: {
       type: String,
-      enum: [
-        'Work', 'Personal', 'Meeting', 'Shopping', 'Ideas',
-        'Travel', 'Finance', 'Health', 'Important', 'Todo'
-      ]
-    }
+      enum: TAGS,
+      default: 'TODO',
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 noteSchema.index({ title: 'text', content: 'text' });

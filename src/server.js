@@ -3,7 +3,9 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
-import cookieParser from "cookie-parser";
+import cookieParser from 'cookie-parser';
+
+import { errors } from 'celebrate';
 
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { logger } from './middleware/logger.js';
@@ -12,7 +14,6 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 import authRoutes from './routes/authRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
-
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -27,6 +28,8 @@ app.use(notesRoutes);
 
 // 404
 app.use(notFoundHandler);
+
+app.use(errors());
 
 // Middleware для обробки помилок
 app.use(errorHandler);
